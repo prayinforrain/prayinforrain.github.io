@@ -1,4 +1,5 @@
 import { getAllPosts } from "@/util/post";
+import path from "path";
 
 export const getStaticProps = () => {
   return {
@@ -9,11 +10,20 @@ export const getStaticProps = () => {
 };
 
 export default function PostsPage({ posts }: { posts: { slug: string }[] }) {
-  console.log(posts);
   return (
     <ul>
       {posts.map((post, i) => (
-        <li key={i}>{post.slug}</li>
+        <li key={i}>
+          <a
+            href={`/blog/${post.slug
+              .replace(/\\/g, "/")
+              .replace(`posts${path.posix.sep}`, "")
+              .split(path.sep)
+              .join(path.posix.sep)}`}
+          >
+            {post.slug}
+          </a>
+        </li>
       ))}
     </ul>
   );

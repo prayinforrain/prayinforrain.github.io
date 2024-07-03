@@ -1,5 +1,8 @@
+import { serializeMdx } from "@/util/mdx";
 import { getAllPosts } from "@/util/post";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import { MDXRemote } from "next-mdx-remote";
+import path from "path";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
@@ -10,10 +13,10 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slugs } = params as { slugs: string[] };
 
-  const slug = `/posts/${[...slugs].join("/")}`;
+  const slug = `/blog/${slugs.join(path.posix.sep)}`;
   const post = getAllPosts().find((post) => post.slug === slug);
 
   if (!post) {
@@ -22,13 +25,21 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
     };
   }
 
+  const renderedContent = await serializeMdx(post?.content ?? "");
+
   return {
     props: {
-      slug,
+      content: renderedContent,
     },
   };
 };
 
-export default function PostPage({ slug }: { slug: string }) {
-  return <div>{slug}</div>;
+type PostPageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+export default function PostPage({ content }: PostPageProps) {
+  return (
+    <div>
+      <MDXRemote {...content} />
+    </div>
+  );
 }

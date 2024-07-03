@@ -4,9 +4,9 @@ import { sync } from "glob";
 import matter from "gray-matter";
 import path from "path";
 
-const SEP = path.posix.sep;
-const BASE_PATH = `posts`;
-const POSTS_PATH = path.join(process.cwd(), `${BASE_PATH}`);
+export const SEP = path.posix.sep;
+export const BASE_PATH = `posts`;
+export const POSTS_PATH = path.join(process.cwd(), `${BASE_PATH}`);
 
 interface PostMatter {
   title: string;
@@ -17,6 +17,7 @@ interface PostMatter {
 
 interface Post extends PostMatter {
   slug: string;
+  filePath: string;
   content: string;
 }
 
@@ -29,7 +30,13 @@ const parsePost = (postPath: string): Post | undefined => {
     return {
       ...grayMatter,
       content,
-      slug: postPath.slice(postPath.indexOf(BASE_PATH)).replace(".mdx", ""),
+      slug: `/blog${postPath
+        .split(path.sep)
+        .join("/")
+        .slice(postPath.indexOf(BASE_PATH))
+        .replace(BASE_PATH, "")
+        .replace(".mdx", "")}`,
+      filePath: postPath,
       createdAt: dayjs(grayMatter.createdAt).format("YYYY-MM-DD HH:mm"),
       updatedAt: dayjs(grayMatter.updatedAt).format("YYYY-MM-DD HH:mm"),
     };
@@ -40,10 +47,11 @@ const parsePost = (postPath: string): Post | undefined => {
 
 export const getAllPosts = () => {
   const postPaths: string[] = sync(`${POSTS_PATH}${SEP}**${SEP}*.mdx`);
-  return postPaths.reduce<Post[]>((acc, curr) => {
+  const res = postPaths.reduce<Post[]>((acc, curr) => {
     const post = parsePost(curr);
     if (!post) return acc;
 
     return [...acc, post];
   }, []);
+  return res;
 };
