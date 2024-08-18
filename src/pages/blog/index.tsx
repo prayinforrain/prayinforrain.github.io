@@ -15,7 +15,7 @@ export default function PostsPage({ posts }: { posts: { slug: string }[] }) {
       {posts.map((post, i) => (
         <li key={i}>
           <a
-            href={`/blog/${post.slug
+            href={`${post.slug
               .replace(/\\/g, "/")
               .replace(`posts${path.posix.sep}`, "")
               .split(path.sep)
