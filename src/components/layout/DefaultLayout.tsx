@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import Header from "./Header";
 
 interface DefaultLayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const DefaultLayout = ({ children }: DefaultLayoutProps) => {
