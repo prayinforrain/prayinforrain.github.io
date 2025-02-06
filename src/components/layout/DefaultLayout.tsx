@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import Header from "./Header";
+import Footer from "./Footer";
 
 interface DefaultLayoutProps {
   children?: React.ReactNode;
@@ -16,6 +17,7 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
     >
       <Header />
       {children}
+      <Footer />
     </Flex>
   );
 };

@@ -1,8 +1,37 @@
 import Head from "next/head";
-import { Button } from "@chakra-ui/react";
+import {
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardRoot,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Icon,
+  LinkOverlay,
+  Text,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import dayjs from "dayjs";
+import { getPosts } from "@/util/post";
+import { InferGetStaticPropsType } from "next";
+import Link from "next/link";
+import { Avatar } from "@/components/ui/avatar";
+import { LuChevronRight } from "react-icons/lu";
 
-export default function Home() {
+export const getStaticProps = () => {
+  return {
+    props: {
+      posts: getPosts(2),
+    },
+  };
+};
+
+export default function Home({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
@@ -12,7 +41,64 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultLayout>
-        <Button>ㅁㄴㅇㄹ</Button>
+        <main>
+          <Container centerContent p={8} gap={4}>
+            <Avatar src="/icon.png" size="2xl" />
+            <Flex direction="column" gap={2} alignItems="center">
+              <Heading size="2xl" as="h2">
+                PrayinForRain
+              </Heading>
+              <Text color="fg.muted">Frontend Developer</Text>
+              <Text color="fg.muted" as="address" textStyle="sm">
+                <ChakraLink href="mailto:prayinforrain@naver.com">
+                  prayinforrain@naver.com
+                </ChakraLink>
+              </Text>
+            </Flex>
+          </Container>
+          <Container as="section">
+            <Heading size="lg" mb={4} as="h2" position="relative">
+              Recent Blog Posts
+              <LinkOverlay asChild>
+                <Link href="/blog">
+                  <Icon size="sm" colorScheme="gray" aria-label="View All">
+                    <LuChevronRight />
+                  </Icon>
+                </Link>
+              </LinkOverlay>
+            </Heading>
+            <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={4}>
+              {posts?.map((post, i) => (
+                <CardRoot key={i} as="article">
+                  <CardHeader>
+                    <LinkOverlay asChild>
+                      <Link href={post.slug}>
+                        <Heading size="md" lineClamp={1}>
+                          {post.title}
+                        </Heading>
+                      </Link>
+                    </LinkOverlay>
+                  </CardHeader>
+                  <CardBody>
+                    <Text fontSize="sm" lineClamp={2}>
+                      {post.description || post.content}
+                    </Text>
+                  </CardBody>
+                  <CardFooter>
+                    <Text
+                      fontSize="sm"
+                      color="gray.500"
+                      textAlign="right"
+                      w="full"
+                    >
+                      {dayjs(post.createdAt).format("YYYY.MM.DD")}
+                    </Text>
+                  </CardFooter>
+                </CardRoot>
+              ))}
+            </Grid>
+          </Container>
+        </main>
       </DefaultLayout>
     </>
   );

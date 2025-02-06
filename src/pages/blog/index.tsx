@@ -1,6 +1,8 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import { getAllPosts } from "@/util/post";
-import path from "path";
+import { Container, Heading, Stack } from "@chakra-ui/react";
+import { InferGetStaticPropsType } from "next";
+import Link from "next/link";
 
 export const getStaticProps = () => {
   return {
@@ -10,24 +12,25 @@ export const getStaticProps = () => {
   };
 };
 
-export default function PostsPage({ posts }: { posts: { slug: string }[] }) {
+export default function PostsPage({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <DefaultLayout>
-      <ul>
-        {posts.map((post, i) => (
-          <li key={i}>
-            <a
-              href={`${post.slug
-                .replace(/\\/g, "/")
-                .replace(`posts${path.posix.sep}`, "")
-                .split(path.sep)
-                .join(path.posix.sep)}`}
-            >
-              {post.slug}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <main>
+        <Container>
+          <Heading size="lg" as="h2">
+            Blog Posts
+          </Heading>
+          <Stack gap={4}>
+            {posts.map((post) => (
+              <Link href={`/blog/${post.slug}`} key={post.slug}>
+                {post.title}
+              </Link>
+            ))}
+          </Stack>
+        </Container>
+      </main>
     </DefaultLayout>
   );
 }

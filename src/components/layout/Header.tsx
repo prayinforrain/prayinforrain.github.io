@@ -1,4 +1,4 @@
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Flex, Heading, IconButton } from "@chakra-ui/react";
 import { LuBook, LuHouse, LuMenu, LuUmbrella } from "react-icons/lu";
 import { ColorModeButton } from "../ui/color-mode";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../ui/drawer";
 import MenuItem from "./MenuItem";
 
-const Header = () => {
+const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
   return (
     <Flex
       direction="row"
@@ -21,6 +21,7 @@ const Header = () => {
       padding={2}
       w="full"
       position="relative"
+      as="header"
       _after={{
         content: '""',
         position: "absolute",
@@ -35,6 +36,16 @@ const Header = () => {
       <IconButton variant="ghost">
         <LuUmbrella />
       </IconButton>
+      <Heading
+        size="lg"
+        as="h1"
+        position="absolute"
+        left={0}
+        right={0}
+        textAlign="center"
+      >
+        {pageTitle}
+      </Heading>
       <Flex
         direction="row"
         gap={2}
