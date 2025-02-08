@@ -8,12 +8,6 @@ const Footer = () => {
         <IconButton variant="ghost">
           <LuGithub />
         </IconButton>
-        <IconButton variant="ghost">
-          <LuGithub />
-        </IconButton>
-        <IconButton variant="ghost">
-          <LuGithub />
-        </IconButton>
       </Flex>
       <Text textStyle="xs" color="fg.subtle">
         © 2025 PrayinforRain. All rights reserved.
