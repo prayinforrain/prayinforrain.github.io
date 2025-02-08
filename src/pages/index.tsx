@@ -1,9 +1,5 @@
 import Head from "next/head";
 import {
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardRoot,
   Container,
   Flex,
   Grid,
@@ -14,12 +10,12 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import dayjs from "dayjs";
 import { getPosts } from "@/util/post";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { Avatar } from "@/components/ui/avatar";
 import { LuChevronRight } from "react-icons/lu";
+import ArticleCard from "@/components/blog/ArticleCard";
 
 export const getStaticProps = () => {
   return {
@@ -69,32 +65,7 @@ export default function Home({
             </Heading>
             <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={4}>
               {posts?.map((post, i) => (
-                <CardRoot key={i} as="article">
-                  <CardHeader>
-                    <LinkOverlay asChild>
-                      <Link href={post.slug}>
-                        <Heading size="md" lineClamp={1}>
-                          {post.title}
-                        </Heading>
-                      </Link>
-                    </LinkOverlay>
-                  </CardHeader>
-                  <CardBody>
-                    <Text fontSize="sm" lineClamp={2}>
-                      {post.description || post.content}
-                    </Text>
-                  </CardBody>
-                  <CardFooter>
-                    <Text
-                      fontSize="sm"
-                      color="gray.500"
-                      textAlign="right"
-                      w="full"
-                    >
-                      {dayjs(post.createdAt).format("YYYY.MM.DD")}
-                    </Text>
-                  </CardFooter>
-                </CardRoot>
+                <ArticleCard key={i} post={post} />
               ))}
             </Grid>
           </Container>

@@ -15,7 +15,7 @@ interface PostMatter {
   draft?: boolean;
 }
 
-interface Post extends PostMatter {
+export interface Post extends PostMatter {
   slug: string;
   filePath: string;
   content: string;
