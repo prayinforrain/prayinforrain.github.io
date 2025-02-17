@@ -1,8 +1,11 @@
-import { serializeMdx } from "@/util/mdx";
+import MarkdownContent from "@/components/blog/MarkdownContent";
+import DefaultLayout from "@/components/layout/DefaultLayout";
 import { getAllPosts } from "@/util/post";
+import { Heading } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
+import remarkGfm from "remark-gfm";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
@@ -25,21 +28,44 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const renderedContent = await serializeMdx(post?.content ?? "");
+  console.log(post);
+  const renderedContent = await serialize(post?.content ?? "", {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [],
+      format: "mdx",
+    },
+  });
+  const { title, description, createdAt, updatedAt } = post;
 
   return {
     props: {
       content: renderedContent,
+      title,
+      description,
+      createdAt,
+      updatedAt,
     },
   };
 };
 
 type PostPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-export default function PostPage({ content }: PostPageProps) {
+export default function PostPage({
+  content,
+  title,
+  description,
+  createdAt,
+  updatedAt,
+}: PostPageProps) {
   return (
-    <div>
-      <MDXRemote {...content} />
-    </div>
+    <DefaultLayout>
+      <article>
+        <Heading size="lg" as="h1">
+          {title}
+        </Heading>
+        <MarkdownContent content={content} />
+      </article>
+    </DefaultLayout>
   );
 }
