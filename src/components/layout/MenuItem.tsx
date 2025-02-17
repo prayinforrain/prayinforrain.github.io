@@ -12,7 +12,10 @@ interface MenuItemProps {
 const MenuItem = ({ href, text, icon }: MenuItemProps) => {
   const { pathname } = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/") return pathname === path;
+    return pathname.startsWith(path);
+  };
 
   return (
     <Link passHref href={href} legacyBehavior>

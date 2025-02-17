@@ -24,7 +24,7 @@ export default function PostsPage({
           </Heading>
           <Stack gap={4}>
             {posts.map((post) => (
-              <Link href={`/blog/${post.slug}`} key={post.slug}>
+              <Link href={`/${post.slug}`} key={post.slug}>
                 {post.title}
               </Link>
             ))}
