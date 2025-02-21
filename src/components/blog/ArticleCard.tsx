@@ -29,7 +29,7 @@ const ArticleCard = ({ post }: ArticleCardProps) => {
       </CardHeader>
       <CardBody>
         <Text fontSize="sm" lineClamp={2}>
-          {post.description || post.content}
+          {post.description || post.contentPreview}
         </Text>
       </CardBody>
       <CardFooter>
