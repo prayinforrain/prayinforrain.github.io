@@ -1,7 +1,8 @@
 import MarkdownContent from "@/components/blog/MarkdownContent";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import { getAllPosts } from "@/util/post";
-import { Heading } from "@chakra-ui/react";
+import { Heading, Stack, Text } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
@@ -28,7 +29,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  console.log(post);
   const renderedContent = await serialize(post?.content ?? "", {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
@@ -61,10 +61,33 @@ export default function PostPage({
   return (
     <DefaultLayout>
       <article>
-        <Heading size="lg" as="h1">
-          {title}
-        </Heading>
-        <MarkdownContent content={content} />
+        <header>
+          <Heading size="4xl" as="h1">
+            {title}
+          </Heading>
+          <Text color="fg.subtle" fontStyle="italic">
+            {description}
+          </Text>
+          <Stack direction="column" alignItems="flex-end" gap={1}>
+            <Text fontSize="sm" display="flex" gap={1}>
+              작성일:
+              <time dateTime={dayjs(createdAt).toISOString()}>
+                {dayjs(createdAt).format("YYYY.MM.DD")}
+              </time>
+            </Text>
+            {updatedAt && updatedAt !== createdAt ? (
+              <Text fontSize="sm" display="flex" gap={1}>
+                최근 수정일:
+                <time dateTime={dayjs(updatedAt).toISOString()}>
+                  {dayjs(updatedAt).format("YYYY.MM.DD")}
+                </time>
+              </Text>
+            ) : null}
+          </Stack>
+        </header>
+        <section>
+          <MarkdownContent content={content} />
+        </section>
       </article>
     </DefaultLayout>
   );
