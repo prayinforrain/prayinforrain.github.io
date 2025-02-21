@@ -1,5 +1,11 @@
 import { Flex, Heading, IconButton } from "@chakra-ui/react";
-import { LuBook, LuHouse, LuMenu, LuUmbrella } from "react-icons/lu";
+import {
+  LuBook,
+  LuFileUser,
+  LuHouse,
+  LuMenu,
+  LuUmbrella,
+} from "react-icons/lu";
 import { ColorModeButton } from "../ui/color-mode";
 import {
   DrawerBackdrop,
@@ -54,6 +60,7 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
       >
         <MenuItem href="/" text="Home" />
         <MenuItem href="/blog" text="Blog" />
+        <MenuItem href="/about" text="About" />
         <ColorModeButton size="md" />
       </Flex>
       <DrawerRoot placement="top">
@@ -78,6 +85,7 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
             <Flex direction="column" gap={2}>
               <MenuItem href="/" text="Home" icon={<LuHouse />} />
               <MenuItem href="/blog" text="Blog" icon={<LuBook />} />
+              <MenuItem href="/about" text="About" icon={<LuFileUser />} />
             </Flex>
           </DrawerBody>
         </DrawerContent>
