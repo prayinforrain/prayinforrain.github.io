@@ -11,7 +11,7 @@ export const POSTS_PATH = path.join(process.cwd(), `${BASE_PATH}`);
 interface PostMatter {
   title: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt: string | null;
   draft?: boolean;
 }
 
@@ -20,6 +20,7 @@ export interface Post extends PostMatter {
   filePath: string;
   content: string;
   description?: string;
+  contentPreview: string;
 }
 
 const parsePost = (postPath: string): Post | undefined => {
@@ -31,6 +32,7 @@ const parsePost = (postPath: string): Post | undefined => {
     return {
       ...grayMatter,
       content,
+      contentPreview: content.split("#")[0].slice(0, 80),
       slug: `/blog${postPath
         .split(path.sep)
         .join("/")
@@ -39,9 +41,9 @@ const parsePost = (postPath: string): Post | undefined => {
         .replace(".mdx", "")}`,
       filePath: postPath,
       createdAt: dayjs(grayMatter.createdAt).format("YYYY-MM-DD HH:mm"),
-      updatedAt: dayjs(grayMatter.updatedAt || grayMatter.createdAt).format(
-        "YYYY-MM-DD HH:mm"
-      ),
+      updatedAt: grayMatter.updatedAt
+        ? dayjs(grayMatter.updatedAt).format("YYYY-MM-DD HH:mm")
+        : null,
     };
   } catch (e) {
     console.error(e);
