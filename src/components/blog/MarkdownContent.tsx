@@ -3,6 +3,7 @@ import { Prose } from "../ui/prose";
 import { Clipboard, IconButton } from "@chakra-ui/react";
 import { LuCheck, LuLink } from "react-icons/lu";
 import { toaster } from "../ui/toaster";
+import ENV from "@/util/env";
 
 type MarkdownContentProps = {
   content: MDXRemoteSerializeResult<
@@ -31,12 +32,9 @@ const getInnerText = (children: React.ReactNode): string => {
 };
 
 const LinkButton = ({ children }: { children: React.ReactNode }) => {
-  const href =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/blog/${getInnerText(children)
-          .toLowerCase()
-          .replace(/ /g, "-")}`
-      : "";
+  const href = `${ENV.BASE_URL}/blog/${getInnerText(children)
+    .toLowerCase()
+    .replace(/ /g, "-")}`;
 
   return (
     <Clipboard.Root value={href} display="inline-flex">
