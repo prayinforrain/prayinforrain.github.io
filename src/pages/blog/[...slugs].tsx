@@ -87,7 +87,7 @@ export default function PostPage({
             ) : null}
           </Stack>
         </header>
-        <Separator />
+        <Separator my={3} />
         <Container as="section" p={4}>
           <MarkdownContent content={content} />
         </Container>
