@@ -1,12 +1,13 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import MarkdownContent from "@/components/blog/MarkdownContent";
 import { getAllPosts } from "@/util/post";
-import { Heading, Stack, Text } from "@chakra-ui/react";
+import { Container, Heading, Separator, Stack, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
 import remarkGfm from "remark-gfm";
+import MetaInformation from "@/components/layout/MetaInformation";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
@@ -60,23 +61,24 @@ export default function PostPage({
 }: PostPageProps) {
   return (
     <DefaultLayout>
-      <article>
+      <MetaInformation title={title} description={description} type="article" />
+      <Container as="article" px={4} py={4}>
         <header>
-          <Heading size="4xl" as="h1">
+          <Heading size="3xl" as="h1">
             {title}
           </Heading>
           <Text color="fg.subtle" fontStyle="italic">
             {description}
           </Text>
           <Stack direction="column" alignItems="flex-end" gap={1}>
-            <Text fontSize="sm" display="flex" gap={1}>
+            <Text fontSize="sm" display="flex" gap={1} className="created-at">
               작성일:
               <time dateTime={dayjs(createdAt).toISOString()}>
                 {dayjs(createdAt).format("YYYY.MM.DD")}
               </time>
             </Text>
             {updatedAt && updatedAt !== createdAt ? (
-              <Text fontSize="sm" display="flex" gap={1}>
+              <Text fontSize="sm" display="flex" gap={1} className="updated-at">
                 최근 수정일:
                 <time dateTime={dayjs(updatedAt).toISOString()}>
                   {dayjs(updatedAt).format("YYYY.MM.DD")}
@@ -85,10 +87,11 @@ export default function PostPage({
             ) : null}
           </Stack>
         </header>
-        <section>
+        <Separator />
+        <Container as="section" p={4}>
           <MarkdownContent content={content} />
-        </section>
-      </article>
+        </Container>
+      </Container>
     </DefaultLayout>
   );
 }
