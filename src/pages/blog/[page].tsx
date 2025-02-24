@@ -19,11 +19,20 @@ export const getStaticProps = (ctx: GetStaticPropsContext) => {
   const startIndex = (currentPage - 1) * POST_PER_PAGE;
   const endIndex = startIndex + POST_PER_PAGE;
   const posts = getAllPosts().slice(startIndex, endIndex);
+  const totalPage = Math.ceil(getAllPosts().length / POST_PER_PAGE);
+  if (currentPage > totalPage) {
+    return {
+      redirect: {
+        destination: "/blog",
+        permanent: true,
+      },
+    };
+  }
   return {
     props: {
       posts,
       page: currentPage,
-      totalPage: Math.ceil(getAllPosts().length / POST_PER_PAGE),
+      totalPage,
     },
   };
 };
