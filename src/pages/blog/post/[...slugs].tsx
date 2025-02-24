@@ -21,7 +21,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slugs } = params as { slugs: string[] };
 
-  const slug = `/blog/${slugs.join(path.posix.sep)}`;
+  const slug = `/blog/post/${slugs.join(path.posix.sep)}`;
   const post = getAllPosts().find((post) => post.slug === slug);
 
   if (!post) {

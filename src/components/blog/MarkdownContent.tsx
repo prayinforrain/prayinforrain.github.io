@@ -32,7 +32,7 @@ const getInnerText = (children: React.ReactNode): string => {
 };
 
 const LinkButton = ({ children }: { children: React.ReactNode }) => {
-  const href = `${ENV.BASE_URL}/blog/${getInnerText(children)
+  const href = `${ENV.BASE_URL}/blog/post/${getInnerText(children)
     .toLowerCase()
     .replace(/ /g, "-")}`;
 
