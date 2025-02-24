@@ -1,4 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import MetaInformation from "@/components/layout/MetaInformation";
 import { getAllPosts } from "@/util/post";
 import { Container, Heading, Stack } from "@chakra-ui/react";
 import { InferGetStaticPropsType } from "next";
@@ -17,6 +18,7 @@ export default function PostsPage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <DefaultLayout>
+      <MetaInformation title="Blog" />
       <main>
         <Container>
           <Heading size="lg" as="h2">

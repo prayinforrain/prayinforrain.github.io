@@ -1,4 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import MetaInformation from "@/components/layout/MetaInformation";
 import { Button, EmptyState } from "@chakra-ui/react";
 import Link from "next/link";
 import { LuChevronRight, LuConstruction } from "react-icons/lu";
@@ -6,6 +7,7 @@ import { LuChevronRight, LuConstruction } from "react-icons/lu";
 const About = () => {
   return (
     <DefaultLayout>
+      <MetaInformation title="About" />
       <EmptyState.Root>
         <EmptyState.Content>
           <EmptyState.Indicator>
