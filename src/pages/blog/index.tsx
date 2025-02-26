@@ -1,3 +1,4 @@
+import ArticleCard from "@/components/blog/ArticleCard";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import MetaInformation from "@/components/layout/MetaInformation";
 import {
@@ -7,7 +8,13 @@ import {
   PaginationRoot,
 } from "@/components/ui/pagination";
 import { getAllPosts } from "@/util/post";
-import { Container, Heading, HStack, Stack } from "@chakra-ui/react";
+import {
+  Container,
+  Heading,
+  HStack,
+  Stack,
+  VisuallyHidden,
+} from "@chakra-ui/react";
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 
@@ -33,15 +40,15 @@ export default function PostsPage({
     <DefaultLayout>
       <MetaInformation title="Blog" />
       <main>
-        <Container>
-          <Heading size="lg" as="h2">
-            Blog Posts
-          </Heading>
-          <Stack gap={4}>
+        <Container as="section">
+          <VisuallyHidden asChild>
+            <Heading size="xl" as="h2">
+              Blog Posts
+            </Heading>
+          </VisuallyHidden>
+          <Stack gap={4} my={4}>
             {posts.map((post) => (
-              <Link href={`${post.slug}`} key={post.slug}>
-                {post.title}
-              </Link>
+              <ArticleCard key={post.slug} post={post} size="sm" />
             ))}
           </Stack>
           <PaginationRoot
