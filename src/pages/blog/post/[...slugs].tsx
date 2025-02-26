@@ -23,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 
   return {
     paths: posts.map((post) => post.slug),
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
@@ -108,10 +108,11 @@ export default function PostPage({
               asChild
               marginX="auto"
               maxH="480px"
+              alt="thumbnail"
             >
               <NextImage
                 src={thumbnail}
-                alt={"thumbnail"}
+                alt="thumbnail"
                 width={768}
                 height={400}
                 priority

@@ -104,7 +104,14 @@ const MarkdownContent = ({ content }: MarkdownContentProps) => {
           ),
           em: Em,
           img: ({ src = "", alt = "" }) => (
-            <Image rounded="md" w="300px" fit="contain" asChild marginX="auto">
+            <Image
+              rounded="md"
+              w="300px"
+              fit="contain"
+              asChild
+              marginX="auto"
+              alt={alt}
+            >
               <NextImage src={src} alt={alt} width={768} height={400} />
             </Image>
           ),

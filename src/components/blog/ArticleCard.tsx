@@ -29,28 +29,6 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
       overflow="hidden"
       {...props}
     >
-      {post.thumbnail && (
-        <Image
-          rounded="md"
-          fit="cover"
-          asChild
-          marginX="auto"
-          h="full"
-          alignSelf="center"
-          maskImage="linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0))"
-          maskSize="80%"
-          maskRepeat="no-repeat"
-          maskPosition="left"
-          position="absolute"
-        >
-          <NextImage
-            src={post.thumbnail}
-            alt={post.title}
-            width={200}
-            height={100}
-          />
-        </Image>
-      )}
       <Box w="full">
         <CardHeader>
           <LinkOverlay asChild>
@@ -80,6 +58,30 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
           </Text>
         </CardFooter>
       </Box>
+      {post.thumbnail && (
+        <Image
+          alt={post.title}
+          rounded="md"
+          fit="cover"
+          asChild
+          marginX="auto"
+          h="full"
+          alignSelf="center"
+          maskImage="linear-gradient(to left, rgba(0,0,0,0.4), rgba(0,0,0,0))"
+          maskSize="80%"
+          maskRepeat="no-repeat"
+          maskPosition="right"
+          position="absolute"
+          right={0}
+        >
+          <NextImage
+            src={post.thumbnail}
+            alt={post.title}
+            width={200}
+            height={100}
+          />
+        </Image>
+      )}
     </CardRoot>
   );
 };

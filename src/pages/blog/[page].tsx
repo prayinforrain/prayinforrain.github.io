@@ -50,7 +50,7 @@ export const getStaticPaths = () => {
     paths: Array.from({ length: Math.ceil(POST_COUNT / POST_PER_PAGE) }).map(
       (_, i) => `/blog/${i + 1}`
     ),
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
