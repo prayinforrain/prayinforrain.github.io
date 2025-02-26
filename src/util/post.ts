@@ -11,26 +11,30 @@ export const POSTS_PATH = path.join(process.cwd(), `${BASE_PATH}`);
 interface PostMatter {
   title: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt: string | null;
   draft?: boolean;
 }
 
-interface Post extends PostMatter {
+export interface Post extends PostMatter {
   slug: string;
   filePath: string;
   content: string;
+  description?: string;
+  contentPreview: string;
+  thumbnail?: string;
 }
 
 const parsePost = (postPath: string): Post | undefined => {
   try {
     const file = readFileSync(postPath, { encoding: "utf-8" });
-    const { content, data } = matter(file);
+    const { content, data, ...rest } = matter(file);
     const grayMatter = data as PostMatter;
     if (grayMatter.draft) return;
     return {
       ...grayMatter,
       content,
-      slug: `/blog${postPath
+      contentPreview: content.split("#")[0].slice(0, 80),
+      slug: `/blog/post${postPath
         .split(path.sep)
         .join("/")
         .slice(postPath.indexOf(BASE_PATH))
@@ -38,20 +42,49 @@ const parsePost = (postPath: string): Post | undefined => {
         .replace(".mdx", "")}`,
       filePath: postPath,
       createdAt: dayjs(grayMatter.createdAt).format("YYYY-MM-DD HH:mm"),
-      updatedAt: dayjs(grayMatter.updatedAt).format("YYYY-MM-DD HH:mm"),
+      updatedAt: grayMatter.updatedAt
+        ? dayjs(grayMatter.updatedAt).format("YYYY-MM-DD HH:mm")
+        : null,
     };
   } catch (e) {
     console.error(e);
   }
 };
 
+/**
+ * @deprecated getPosts로 통합하기
+ */
 export const getAllPosts = () => {
   const postPaths: string[] = sync(`${POSTS_PATH}${SEP}**${SEP}*.mdx`);
-  const res = postPaths.reduce<Post[]>((acc, curr) => {
-    const post = parsePost(curr);
-    if (!post) return acc;
+  const res = postPaths
+    .reduce<Post[]>((acc, curr) => {
+      const post = parsePost(curr);
+      if (!post) return acc;
 
-    return [...acc, post];
-  }, []);
+      return [...acc, post];
+    }, [])
+    .sort((a, b) => {
+      const aDate = dayjs(a.createdAt);
+      const bDate = dayjs(b.createdAt);
+      return bDate.diff(aDate);
+    });
+
+  return res;
+};
+
+export const getPosts = (limit: number = 10) => {
+  const postPaths: string[] = sync(`${POSTS_PATH}${SEP}**${SEP}*.mdx`);
+  const res = postPaths
+    .slice(0, limit)
+    .reduce<Post[]>((acc, curr) => {
+      const post = parsePost(curr);
+      if (!post) return acc;
+      return [...acc, post];
+    }, [])
+    .sort((a, b) => {
+      const aDate = dayjs(a.createdAt);
+      const bDate = dayjs(b.createdAt);
+      return bDate.diff(aDate);
+    });
   return res;
 };

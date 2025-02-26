@@ -15,18 +15,42 @@ import {
   Stack,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import { InferGetStaticPropsType } from "next";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
 const POST_PER_PAGE = 5;
 
-export const getStaticProps = () => {
-  const posts = getAllPosts();
+export const getStaticProps = (ctx: GetStaticPropsContext) => {
+  const { page } = ctx.params as { page: string };
+  const currentPage = parseInt(page);
+  const startIndex = (currentPage - 1) * POST_PER_PAGE;
+  const endIndex = startIndex + POST_PER_PAGE;
+  const posts = getAllPosts().slice(startIndex, endIndex);
+  const totalPage = Math.ceil(getAllPosts().length / POST_PER_PAGE);
+  if (currentPage > totalPage) {
+    return {
+      redirect: {
+        destination: "/blog",
+        permanent: true,
+      },
+    };
+  }
   return {
     props: {
-      posts: posts.slice(0, POST_PER_PAGE),
-      page: 1,
-      totalPage: Math.ceil(posts.length / POST_PER_PAGE),
+      posts,
+      page: currentPage,
+      totalPage,
     },
+  };
+};
+
+export const getStaticPaths = () => {
+  const POST_COUNT = getAllPosts().length;
+
+  return {
+    paths: Array.from({ length: Math.ceil(POST_COUNT / POST_PER_PAGE) }).map(
+      (_, i) => `/blog/${i + 1}`
+    ),
+    fallback: "blocking",
   };
 };
 
@@ -58,9 +82,9 @@ export default function PostsPage({
             getHref={(p) => `/blog/${p}`}
           >
             <HStack gap={1} w="full" justifyContent="center">
-              <PaginationPrevTrigger />
+              <PaginationPrevTrigger disabled={page === 1} />
               <PaginationItems />
-              <PaginationNextTrigger />
+              <PaginationNextTrigger disabled={page === totalPage} />
             </HStack>
           </PaginationRoot>
         </Container>
