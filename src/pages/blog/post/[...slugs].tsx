@@ -1,13 +1,22 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import MarkdownContent from "@/components/blog/MarkdownContent";
 import { getAllPosts } from "@/util/post";
-import { Container, Heading, Separator, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Heading,
+  Image,
+  Separator,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
 import remarkGfm from "remark-gfm";
 import MetaInformation from "@/components/layout/MetaInformation";
+import NextImage from "next/image";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
@@ -37,7 +46,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       format: "mdx",
     },
   });
-  const { title, description, createdAt, updatedAt } = post;
+  const { title, description, createdAt, updatedAt, thumbnail } = post;
 
   return {
     props: {
@@ -46,6 +55,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       description,
       createdAt,
       updatedAt,
+      thumbnail,
     },
   };
 };
@@ -58,19 +68,20 @@ export default function PostPage({
   description,
   createdAt,
   updatedAt,
+  thumbnail,
 }: PostPageProps) {
   return (
     <DefaultLayout>
       <MetaInformation title={title} description={description} type="article" />
       <Container as="article" px={4} py={4}>
-        <header>
+        <Box as="header" p={4}>
           <Heading size="3xl" as="h1">
             {title}
           </Heading>
           <Text color="fg.subtle" fontStyle="italic">
             {description}
           </Text>
-          <Stack direction="column" alignItems="flex-end" gap={1}>
+          <Stack direction="column" alignItems="flex-end" gap={1} mt={2}>
             <Text fontSize="sm" display="flex" gap={1} className="created-at">
               작성일:
               <time dateTime={dayjs(createdAt).toISOString()}>
@@ -86,9 +97,27 @@ export default function PostPage({
               </Text>
             ) : null}
           </Stack>
-        </header>
-        <Separator my={3} />
+        </Box>
+        <Separator my={3} mx="auto" maxW="70ch" />
         <Container as="section" p={4}>
+          {thumbnail && (
+            <Image
+              rounded="md"
+              w="65ch"
+              fit="cover"
+              asChild
+              marginX="auto"
+              maxH="480px"
+            >
+              <NextImage
+                src={thumbnail}
+                alt={"thumbnail"}
+                width={768}
+                height={400}
+                priority
+              />
+            </Image>
+          )}
           <MarkdownContent content={content} />
         </Container>
       </Container>

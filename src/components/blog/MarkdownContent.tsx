@@ -1,9 +1,10 @@
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { Prose } from "../ui/prose";
-import { Clipboard, IconButton } from "@chakra-ui/react";
+import { Image, Clipboard, Em, IconButton } from "@chakra-ui/react";
 import { LuCheck, LuLink } from "react-icons/lu";
 import { toaster } from "../ui/toaster";
 import ENV from "@/util/env";
+import NextImage from "next/image";
 
 type MarkdownContentProps = {
   content: MDXRemoteSerializeResult<
@@ -61,7 +62,7 @@ const LinkButton = ({ children }: { children: React.ReactNode }) => {
 
 const MarkdownContent = ({ content }: MarkdownContentProps) => {
   return (
-    <Prose>
+    <Prose marginX="auto">
       <MDXRemote
         {...content}
         components={{
@@ -100,6 +101,12 @@ const MarkdownContent = ({ content }: MarkdownContentProps) => {
               {children}
               <LinkButton>{children}</LinkButton>
             </h6>
+          ),
+          em: Em,
+          img: ({ src = "", alt = "" }) => (
+            <Image rounded="md" w="300px" fit="contain" asChild marginX="auto">
+              <NextImage src={src} alt={alt} width={768} height={400} />
+            </Image>
           ),
         }}
       />
