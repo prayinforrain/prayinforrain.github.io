@@ -16,7 +16,6 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { InferGetStaticPropsType } from "next";
-import Link from "next/link";
 
 const POST_PER_PAGE = 5;
 
