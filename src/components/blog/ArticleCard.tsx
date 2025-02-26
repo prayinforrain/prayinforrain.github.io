@@ -72,6 +72,7 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
           maskRepeat="no-repeat"
           maskPosition="right"
           position="absolute"
+          pointerEvents="none"
           right={0}
         >
           <NextImage
