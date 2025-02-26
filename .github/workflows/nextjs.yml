@@ -49,6 +49,7 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Create .env file
         run: |
+          echo "VARIABLES_CONTEXT: ${{ toJson(vars) }}"
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$VARIABLES_CONTEXT" > .env
         env:
           VARIABLES_CONTEXT: ${{ toJson(vars) }}
