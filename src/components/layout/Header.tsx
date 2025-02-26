@@ -39,7 +39,7 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
         marginTop: 4,
       }}
     >
-      <IconButton variant="ghost" aria-label="Home">
+      <IconButton variant="ghost" aria-label="Home" zIndex={1}>
         <LuUmbrella />
       </IconButton>
       <Heading
