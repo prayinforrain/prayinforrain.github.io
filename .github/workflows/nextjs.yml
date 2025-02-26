@@ -47,6 +47,11 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Create .env file
+        run: |
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$VARIABLES_CONTEXT" > .env
+        env:
+          VARIABLES_CONTEXT: ${{ toJson(vars) }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
