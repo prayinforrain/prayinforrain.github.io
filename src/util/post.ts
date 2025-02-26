@@ -33,7 +33,7 @@ const parsePost = (postPath: string): Post | undefined => {
       ...grayMatter,
       content,
       contentPreview: content.split("#")[0].slice(0, 80),
-      slug: `/blog${postPath
+      slug: `/blog/post${postPath
         .split(path.sep)
         .join("/")
         .slice(postPath.indexOf(BASE_PATH))
