@@ -21,6 +21,7 @@ export interface Post extends PostMatter {
   content: string;
   description?: string;
   contentPreview: string;
+  thumbnail?: string;
 }
 
 const parsePost = (postPath: string): Post | undefined => {
@@ -67,6 +68,7 @@ export const getAllPosts = () => {
       const bDate = dayjs(b.createdAt);
       return bDate.diff(aDate);
     });
+
   return res;
 };
 
