@@ -91,6 +91,12 @@ export const PaginationItem = React.forwardRef<
   const variant = current ? variantMap.current : variantMap.default;
 
   if (getHref) {
+    if (current)
+      return (
+        <IconButton variant={variant} size={size} disabled as="a">
+          {props.value}
+        </IconButton>
+      );
     return (
       <LinkButton href={getHref(props.value)} variant={variant} size={size}>
         {props.value}
@@ -115,9 +121,15 @@ export const PaginationPrevTrigger = React.forwardRef<
   const { previousPage } = usePaginationContext();
 
   if (getHref) {
+    if (!previousPage)
+      return (
+        <IconButton variant={variantMap.default} size={size} disabled as="a">
+          <HiChevronLeft />
+        </IconButton>
+      );
     return (
       <LinkButton
-        href={previousPage != null ? getHref(previousPage) : "#"}
+        href={getHref(previousPage)}
         variant={variantMap.default}
         size={size}
       >
@@ -143,9 +155,15 @@ export const PaginationNextTrigger = React.forwardRef<
   const { nextPage } = usePaginationContext();
 
   if (getHref) {
+    if (!nextPage)
+      return (
+        <IconButton variant={variantMap.default} size={size} disabled as="a">
+          <HiChevronRight />
+        </IconButton>
+      );
     return (
       <LinkButton
-        href={nextPage != null ? getHref(nextPage) : "#"}
+        href={getHref(nextPage)}
         variant={variantMap.default}
         size={size}
       >
