@@ -17,6 +17,7 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import MenuItem from "./MenuItem";
+import Link from "next/link";
 
 const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
   return (
@@ -39,8 +40,10 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
         marginTop: 4,
       }}
     >
-      <IconButton variant="ghost" aria-label="Home" zIndex={1}>
-        <LuUmbrella />
+      <IconButton variant="ghost" aria-label="Home" zIndex={1} asChild>
+        <Link href="/">
+          <LuUmbrella />
+        </Link>
       </IconButton>
       <Heading
         size="lg"
