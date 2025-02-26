@@ -1,4 +1,4 @@
-import { Flex, Heading, IconButton } from "@chakra-ui/react";
+import { Flex, Heading, IconButton, VisuallyHidden } from "@chakra-ui/react";
 import {
   LuBook,
   LuFileUser,
@@ -71,6 +71,7 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
       <DrawerRoot placement="top">
         <DrawerTrigger asChild display={{ base: "flex", md: "none" }}>
           <IconButton variant="ghost">
+            <VisuallyHidden>Menu</VisuallyHidden>
             <LuMenu />
           </IconButton>
         </DrawerTrigger>

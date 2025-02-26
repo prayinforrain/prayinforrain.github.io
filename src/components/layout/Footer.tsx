@@ -1,4 +1,4 @@
-import { Flex, IconButton, Text } from "@chakra-ui/react";
+import { Flex, IconButton, Text, VisuallyHidden } from "@chakra-ui/react";
 import Link from "next/link";
 import { LuGithub } from "react-icons/lu";
 
@@ -12,6 +12,7 @@ const Footer = () => {
           target="_blank"
         >
           <IconButton variant="ghost" as="a">
+            <VisuallyHidden>Github</VisuallyHidden>
             <LuGithub />
           </IconButton>
         </Link>

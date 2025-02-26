@@ -7,6 +7,7 @@ import {
   LinkOverlay,
   Text,
   Link as ChakraLink,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import { getPosts } from "@/util/post";
@@ -52,6 +53,7 @@ export default function Home({
               Recent Blog Posts
               <LinkOverlay asChild>
                 <Link href="/blog">
+                  <VisuallyHidden>View All</VisuallyHidden>
                   <Icon size="sm" colorScheme="gray" aria-label="View All">
                     <LuChevronRight />
                   </Icon>
