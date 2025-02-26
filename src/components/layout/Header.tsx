@@ -39,7 +39,7 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
         marginTop: 4,
       }}
     >
-      <IconButton variant="ghost">
+      <IconButton variant="ghost" aria-label="Home">
         <LuUmbrella />
       </IconButton>
       <Heading
@@ -63,6 +63,8 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
         <MenuItem href="/about" text="About" />
         <ColorModeButton size="md" />
       </Flex>
+
+      {/* 모바일 메뉴 */}
       <DrawerRoot placement="top">
         <DrawerTrigger asChild display={{ base: "flex", md: "none" }}>
           <IconButton variant="ghost">
