@@ -9,4 +9,5 @@ module.exports = {
       `${process.env.NEXT_PUBLIC_BASE_URL}/archived-blog/sitemap.xml`,
     ],
   },
+  outDir: "./out",
 };
