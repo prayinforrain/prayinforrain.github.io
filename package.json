@@ -12,6 +12,7 @@
   "dependencies": {
     "@chakra-ui/react": "^3.7.0",
     "@emotion/react": "^11.14.0",
+    "@next/third-parties": "^15.2.2",
     "@types/glob": "^8.1.0",
     "dayjs": "^1.11.11",
     "glob": "^10.4.2",
