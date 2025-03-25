@@ -61,6 +61,7 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
         display={{ base: "none", md: "flex" }}
         as="nav"
       >
+        <VisuallyHidden>Menu</VisuallyHidden>
         <MenuItem href="/" text="Home" />
         <MenuItem href="/blog" text="Blog" />
         <MenuItem href="/about" text="About" />
@@ -68,10 +69,10 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
       </Flex>
 
       {/* 모바일 메뉴 */}
-      <DrawerRoot placement="top">
+      <DrawerRoot placement="top" unmountOnExit={false}>
         <DrawerTrigger asChild display={{ base: "flex", md: "none" }}>
-          <IconButton variant="ghost">
-            <VisuallyHidden>Menu</VisuallyHidden>
+          <IconButton variant="ghost" aria-label="메뉴 열기">
+            <VisuallyHidden>메뉴 열기</VisuallyHidden>
             <LuMenu />
           </IconButton>
         </DrawerTrigger>
