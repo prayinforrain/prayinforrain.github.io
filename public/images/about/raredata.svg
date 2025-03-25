@@ -1,0 +1,25 @@
+<svg
+  viewBox="0 0 46 46"
+  fill="#00c271"
+  xmlns="http://www.w3.org/2000/svg"
+  fillsecondary="#00af66"
+>
+  <g clip-path="url(#logo_svg__a)">
+    <path fill="#00C271" d="M0 0h12.268v12.267H0z"></path>
+    <path fill="#009B5A" d="M0 16.868h12.268v12.267H0z"></path>
+    <path
+      fill="#00C271"
+      d="M0 33.732h12.268v12.267H0zM16.868 0H23c8.826 0 16.491 4.971 20.347 12.267h-26.48V0Z"
+    ></path>
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M45.174 16.864H16.867V29.13h28.306c.53-1.919.817-3.937.827-6.021v-.23c-.01-2.082-.297-4.1-.826-6.016Z"
+      fill="#009B5A"
+    ></path>
+    <path
+      d="M43.348 33.732h-26.48v12.267h6.216c8.791-.031 16.42-4.995 20.264-12.267Z"
+      fill="#00C271"
+    ></path>
+  </g>
+</svg>
