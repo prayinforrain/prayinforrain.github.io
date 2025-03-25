@@ -1,6 +1,6 @@
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { Prose } from "../ui/prose";
-import { Image, Clipboard, Em, IconButton } from "@chakra-ui/react";
+import { Image, Clipboard, Em, IconButton, Box } from "@chakra-ui/react";
 import { LuCheck, LuLink } from "react-icons/lu";
 import { toaster } from "../ui/toaster";
 import ENV from "@/util/env";
@@ -62,7 +62,7 @@ const LinkButton = ({ children }: { children: React.ReactNode }) => {
 
 const MarkdownContent = ({ content }: MarkdownContentProps) => {
   return (
-    <Prose marginX="auto">
+    <Prose marginX="auto" overflowX="hidden">
       <MDXRemote
         {...content}
         components={{
@@ -114,6 +114,21 @@ const MarkdownContent = ({ content }: MarkdownContentProps) => {
             >
               <NextImage src={src} alt={alt} width={768} height={400} />
             </Image>
+          ),
+          table: ({ children }) => (
+            <div style={{ overflowX: "auto" }}>
+              <Box
+                as="table"
+                style={{
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "keep-all",
+                }}
+                width={{ base: "max-content", md: "100%" }}
+                maxWidth={{ base: "200%", md: "100%" }}
+              >
+                {children}
+              </Box>
+            </div>
           ),
         }}
       />
