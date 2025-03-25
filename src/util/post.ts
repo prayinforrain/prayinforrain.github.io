@@ -10,8 +10,8 @@ export const POSTS_PATH = path.join(process.cwd(), `${BASE_PATH}`);
 
 interface PostMatter {
   title: string;
-  createdAt: string;
-  updatedAt: string | null;
+  createdAt?: string;
+  updatedAt?: string | null;
   draft?: boolean;
 }
 

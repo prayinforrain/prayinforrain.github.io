@@ -45,17 +45,19 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
           </Text>
         </CardBody>
         <CardFooter>
-          <Text
-            fontSize="sm"
-            color="gray.500"
-            textAlign="right"
-            w="full"
-            asChild
-          >
-            <time dateTime={post.createdAt}>
-              {dayjs(post.createdAt).format("YYYY.MM.DD")}
-            </time>
-          </Text>
+          {post.createdAt && (
+            <Text
+              fontSize="sm"
+              color="gray.500"
+              textAlign="right"
+              w="full"
+              asChild
+            >
+              <time dateTime={post.createdAt}>
+                {dayjs(post.createdAt).format("YYYY.MM.DD")}
+              </time>
+            </Text>
+          )}
         </CardFooter>
       </Box>
       {post.thumbnail && (

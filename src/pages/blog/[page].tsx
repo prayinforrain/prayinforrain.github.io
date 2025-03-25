@@ -73,6 +73,20 @@ export default function PostsPage({
             {posts.map((post) => (
               <ArticleCard key={post.slug} post={post} size="sm" />
             ))}
+            {page === totalPage && (
+              <ArticleCard
+                post={{
+                  slug: "/archived-blog/posts",
+                  title: "이전 포스트 더 보기",
+                  description: "2025년 이전 포스트는 여기서 확인해 주세요.",
+                  content: "",
+                  contentPreview: "",
+                  filePath: "",
+                  thumbnail: "/images/archived-blog.png",
+                }}
+                size="sm"
+              />
+            )}
           </Stack>
           <PaginationRoot
             w="full"
