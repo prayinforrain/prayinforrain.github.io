@@ -26,14 +26,18 @@ const Header = ({ pageTitle = "devWoo" }: { pageTitle?: string }) => {
       justifyContent="space-between"
       alignItems="center"
       padding={2}
-      w="full"
-      position="relative"
+      w="100%"
+      position="sticky"
+      top={0}
       as="header"
+      zIndex={100}
+      backgroundColor="bg"
       _after={{
         content: '""',
         position: "absolute",
         bottom: 0,
-        left: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
         width: "100%",
         height: "1px",
         backgroundColor: "border.emphasized",
