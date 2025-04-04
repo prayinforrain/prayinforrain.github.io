@@ -4,7 +4,14 @@ import { LuGithub } from "react-icons/lu";
 
 const Footer = () => {
   return (
-    <Flex direction="column" gap={2} alignItems="center" mt={8} as="footer">
+    <Flex
+      direction="column"
+      gap={2}
+      alignItems="center"
+      mt={8}
+      as="footer"
+      pb={8}
+    >
       <Flex as="address" direction="row" gap={2}>
         <Link
           href="https://github.com/prayinforrain"
