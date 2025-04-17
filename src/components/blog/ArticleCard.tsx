@@ -16,7 +16,7 @@ import NextImage from "next/image";
 import Link from "next/link";
 
 interface ArticleCardProps extends CardRootProps {
-  post: Post;
+  post: Partial<Post>;
 }
 
 const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
@@ -32,7 +32,7 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
       <Box w="full">
         <CardHeader>
           <LinkOverlay asChild>
-            <Link href={post.slug}>
+            <Link href={post.slug || ""}>
               <Heading size="md" lineClamp={1}>
                 {post.title}
               </Heading>
@@ -79,7 +79,7 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
         >
           <NextImage
             src={post.thumbnail}
-            alt={post.title}
+            alt={post.title || ""}
             width={200}
             height={100}
           />

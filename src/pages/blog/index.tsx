@@ -21,9 +21,10 @@ const POST_PER_PAGE = 5;
 
 export const getStaticProps = () => {
   const posts = getAllPosts();
+  const postsWithoutContent = posts.map(({ content, ...rest }) => rest);
   return {
     props: {
-      posts: posts.slice(0, POST_PER_PAGE),
+      posts: postsWithoutContent.slice(0, POST_PER_PAGE),
       page: 1,
       totalPage: Math.ceil(posts.length / POST_PER_PAGE),
     },

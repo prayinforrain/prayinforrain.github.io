@@ -24,7 +24,8 @@ export const getStaticProps = (ctx: GetStaticPropsContext) => {
   const currentPage = parseInt(page);
   const startIndex = (currentPage - 1) * POST_PER_PAGE;
   const endIndex = startIndex + POST_PER_PAGE;
-  const posts = getAllPosts().slice(startIndex, endIndex);
+  const postData = getAllPosts().slice(startIndex, endIndex);
+  const posts = postData.map(({ content, ...rest }) => rest);
   const totalPage = Math.ceil(getAllPosts().length / POST_PER_PAGE);
   if (currentPage > totalPage) {
     return {
