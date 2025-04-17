@@ -19,6 +19,7 @@ import remarkGfm from "remark-gfm";
 import MetaInformation from "@/components/layout/MetaInformation";
 import NextImage from "next/image";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import GotoTop from "@/components/blog/GotoTop";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
@@ -180,6 +181,7 @@ export default function PostPage({
           </Stack>
         </Container>
       </Container>
+      <GotoTop />
     </DefaultLayout>
   );
 }
