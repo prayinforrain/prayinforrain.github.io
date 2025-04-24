@@ -51,7 +51,9 @@ export const ColorModeButton = React.forwardRef<
 >(function ColorModeButton(props, ref) {
   const { toggleColorMode } = useColorMode();
   return (
-    <ClientOnly fallback={<Skeleton boxSize="8" />}>
+    <ClientOnly
+      fallback={<Skeleton boxSize={props.size === "md" ? "10" : "9"} />}
+    >
       <IconButton
         onClick={toggleColorMode}
         variant="ghost"
