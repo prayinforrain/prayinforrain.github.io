@@ -247,6 +247,11 @@ export const Prose = chakra("div", {
       color: "fg",
       fontWeight: "600",
     },
+    "& aside": {
+      backgroundColor: "gray.100",
+      padding: "0.1em 1em",
+      borderRadius: "md",
+    },
   },
   variants: {
     size: {
