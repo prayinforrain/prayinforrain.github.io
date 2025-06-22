@@ -20,6 +20,7 @@ import MetaInformation from "@/components/layout/MetaInformation";
 import NextImage from "next/image";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import GotoTop from "@/components/blog/GotoTop";
+import ProfileCard from "@/components/blog/ProfileCard";
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
@@ -144,42 +145,50 @@ export default function PostPage({
           )}
           <MarkdownContent content={content} />
         </Container>
-        <Separator my={3} mx="auto" maxW="70ch" />
-        <Container as="section" p={4}>
-          <Stack direction="row" justifyContent="space-between" gap={1} mt={2}>
-            {prev ? (
-              <Link href={prev.slug} p={4}>
-                <Text
-                  fontSize="sm"
-                  display="flex"
-                  gap={1}
-                  className="previous-post"
-                  alignItems="center"
-                >
-                  <LuChevronLeft />
-                  {prev.title}
-                </Text>
-              </Link>
-            ) : (
-              <Box />
-            )}
-            {next ? (
-              <Link href={next.slug} p={4}>
-                <Text
-                  fontSize="sm"
-                  display="flex"
-                  gap={1}
-                  className="next-post"
-                  alignItems="center"
-                >
-                  {next.title} <LuChevronRight />
-                </Text>
-              </Link>
-            ) : (
-              <Box />
-            )}
-          </Stack>
-        </Container>
+        <Box as="footer">
+          <Separator my={6} mx="auto" maxW="70ch" />
+          <ProfileCard mx="auto" />
+          <Container as="section" p={4}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              gap={1}
+              mt={2}
+            >
+              {prev ? (
+                <Link href={prev.slug} p={4}>
+                  <Text
+                    fontSize="sm"
+                    display="flex"
+                    gap={1}
+                    className="previous-post"
+                    alignItems="center"
+                  >
+                    <LuChevronLeft />
+                    {prev.title}
+                  </Text>
+                </Link>
+              ) : (
+                <Box />
+              )}
+              {next ? (
+                <Link href={next.slug} p={4}>
+                  <Text
+                    fontSize="sm"
+                    display="flex"
+                    gap={1}
+                    className="next-post"
+                    alignItems="center"
+                  >
+                    {next.title} <LuChevronRight />
+                  </Text>
+                </Link>
+              ) : (
+                <Box />
+              )}
+            </Stack>
+          </Container>
+        </Box>
       </Container>
       <GotoTop />
     </DefaultLayout>
