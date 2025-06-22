@@ -16,10 +16,10 @@ const About = () => {
           <EmptyState.Title>공사중</EmptyState.Title>
           <EmptyState.Description>
             준비중인 페이지입니다. <br />
-            랠릿 이력서를 확인해주세요.
+            이력서를 확인해주세요.
             <Button asChild variant="outline" display="flex" mt={4}>
               <Link
-                href="https://www.rallit.com/hub/resumes/229210/%EC%9D%B4%EC%9A%B0%EC%9E%AC"
+                href="https://docs.google.com/document/d/1AJHYFpaYrquhcOzxgD2mM6KW1_zBRMzNWUqd7726dNk/edit"
                 target="_blank"
               >
                 이력서 보기 <LuChevronRight />
