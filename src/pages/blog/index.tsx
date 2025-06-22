@@ -26,7 +26,7 @@ export const getStaticProps = () => {
     props: {
       posts: postsWithoutContent.slice(0, POST_PER_PAGE),
       page: 1,
-      totalPage: Math.ceil(posts.length / POST_PER_PAGE),
+      total: posts.length,
     },
   };
 };
@@ -34,8 +34,9 @@ export const getStaticProps = () => {
 export default function PostsPage({
   posts,
   page,
-  totalPage,
+  total,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const totalPage = Math.ceil(total / POST_PER_PAGE);
   return (
     <DefaultLayout>
       <MetaInformation title="Blog" />
@@ -67,7 +68,7 @@ export default function PostsPage({
           </Stack>
           <PaginationRoot
             w="full"
-            count={totalPage}
+            count={total}
             page={page}
             pageSize={POST_PER_PAGE}
             getHref={(p) => `/blog/${p}`}

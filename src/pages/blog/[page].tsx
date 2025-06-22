@@ -26,8 +26,8 @@ export const getStaticProps = (ctx: GetStaticPropsContext) => {
   const endIndex = startIndex + POST_PER_PAGE;
   const postData = getAllPosts().slice(startIndex, endIndex);
   const posts = postData.map(({ content, ...rest }) => rest);
-  const totalPage = Math.ceil(getAllPosts().length / POST_PER_PAGE);
-  if (currentPage > totalPage) {
+  const total = getAllPosts().length;
+  if (currentPage > total) {
     return {
       redirect: {
         destination: "/blog",
@@ -39,7 +39,7 @@ export const getStaticProps = (ctx: GetStaticPropsContext) => {
     props: {
       posts,
       page: currentPage,
-      totalPage,
+      total,
     },
   };
 };
@@ -58,8 +58,9 @@ export const getStaticPaths = () => {
 export default function PostsPage({
   posts,
   page,
-  totalPage,
+  total,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const totalPage = Math.ceil(total / POST_PER_PAGE);
   return (
     <DefaultLayout>
       <MetaInformation title="Blog" />
@@ -91,7 +92,7 @@ export default function PostsPage({
           </Stack>
           <PaginationRoot
             w="full"
-            count={totalPage}
+            count={total}
             page={page}
             pageSize={POST_PER_PAGE}
             getHref={(p) => `/blog/${p}`}
@@ -99,7 +100,7 @@ export default function PostsPage({
             <HStack gap={1} w="full" justifyContent="center">
               <PaginationPrevTrigger disabled={page === 1} />
               <PaginationItems />
-              <PaginationNextTrigger disabled={page === totalPage} />
+              <PaginationNextTrigger disabled={page === total} />
             </HStack>
           </PaginationRoot>
         </Container>
