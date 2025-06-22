@@ -42,8 +42,8 @@ export default function Home({
               </Heading>
               <Text color="fg.muted">Frontend Developer</Text>
               <Text color="fg.muted" as="address" textStyle="sm">
-                <ChakraLink href="mailto:prayinforrain@naver.com">
-                  prayinforrain@naver.com
+                <ChakraLink href="mailto:prayinforrain96@gmail.com">
+                  prayinforrain96@gmail.com
                 </ChakraLink>
               </Text>
             </Flex>
