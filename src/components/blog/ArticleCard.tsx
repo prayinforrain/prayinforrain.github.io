@@ -20,6 +20,7 @@ interface ArticleCardProps extends CardRootProps {
 }
 
 const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
+  const bodyText = post.description || post.contentPreview;
   return (
     <CardRoot
       key={post.slug}
@@ -39,11 +40,13 @@ const ArticleCard = ({ post, ...props }: ArticleCardProps) => {
             </Link>
           </LinkOverlay>
         </CardHeader>
-        <CardBody>
-          <Text fontSize="sm" lineClamp={2}>
-            {post.description || post.contentPreview}
-          </Text>
-        </CardBody>
+        {bodyText && (
+          <CardBody>
+            <Text fontSize="sm" lineClamp={2} whiteSpace="pre-wrap">
+              {bodyText}
+            </Text>
+          </CardBody>
+        )}
         <CardFooter>
           {post.createdAt && (
             <Text

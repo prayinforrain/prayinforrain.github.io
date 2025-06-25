@@ -33,7 +33,8 @@ const parsePost = (postPath: string): Post | undefined => {
     return {
       ...grayMatter,
       content,
-      contentPreview: content.split("#")[0].slice(0, 80),
+      // TODO: 서문 없이 Heading으로 시작하는 경우 처리
+      contentPreview: content.split("#")[0].trim().slice(0, 80),
       slug: `/blog/post${postPath
         .split(path.sep)
         .join("/")
