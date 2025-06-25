@@ -56,7 +56,8 @@ export default function PostsPage({
                 post={{
                   slug: "/archived-blog/posts",
                   title: "이전 포스트 더 보기",
-                  description: "2025년 이전 포스트는 여기서 확인해 주세요.",
+                  description:
+                    "2025년 이전에 작성한 포스트를 마이그레이션 중입니다.\n더 많은 포스트는 이전 블로그에서 확인해 주세요.",
                   content: "",
                   contentPreview: "",
                   filePath: "",
