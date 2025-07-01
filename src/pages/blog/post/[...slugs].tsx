@@ -96,7 +96,12 @@ export default function PostPage({
 }: PostPageProps) {
   return (
     <DefaultLayout>
-      <MetaInformation title={title} description={description} type="article" />
+      <MetaInformation
+        title={title}
+        description={description}
+        type="article"
+        image={thumbnail}
+      />
       <Container as="article" px={4} py={4}>
         <Box as="header" p={4}>
           <Heading size="3xl" as="h1">
