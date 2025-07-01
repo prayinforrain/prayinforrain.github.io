@@ -24,9 +24,23 @@ const MetaInformation = ({
     <NextHead>
       <title>{title ? `${title} - devWoo` : "devWoo"}</title>
       <meta name="description" content={description || "우재의 개발 블로그"} />
-      <meta property="og:image" content={image} />
-      <meta property="og:url" content={url || `${origin}${router.asPath}`} />
-      <meta property="og:type" content={type} />
+      <meta
+        property="og:title"
+        key="og:title"
+        content={title ? `${title} - devWoo` : "devWoo"}
+      />
+      <meta
+        property="og:description"
+        key="og:description"
+        content={description || "우재의 개발 블로그"}
+      />
+      <meta property="og:image" key="og:image" content={`${origin}${image}`} />
+      <meta
+        property="og:url"
+        key="og:url"
+        content={url || `${origin}${router.asPath}`}
+      />
+      <meta property="og:type" key="og:type" content={type} />
       {/* TODO: 구조화된 데이터 추가 */}
     </NextHead>
   );
